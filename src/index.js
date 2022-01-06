@@ -7,7 +7,7 @@ var firstLoad = true;
 class Ats extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { value: ''}
+    this.state = { value: '' }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -18,16 +18,18 @@ class Ats extends React.Component {
   }
 
 
-  
+
   handleSubmit(event) {
     var val = parseInt(this.state.value)
     var that = this;
+    that.setState({ overlay: { display: 'block' } })
     this.getATSCode().then(function (ats) {
       if (val === ats) {
         that.deleteATS().then(function (response) {
           that.setState({ status: response })
-        });
-        that.obtainATS();
+        }).then(function () {
+          that.obtainATS();
+        })
       } else {
         that.setState({ status: 'wrong ATS entered' })
       }
@@ -40,6 +42,7 @@ class Ats extends React.Component {
   }
 
   deleteATS() {
+    var that = this;
     return fetch(`http://127.0.0.1:3001/api/ats/delete-ats`, {
       method: 'DELETE',
     }).then(function (response) {
@@ -68,6 +71,7 @@ class Ats extends React.Component {
 
   generateRandomATS() {
     let that = this;
+    that.setState({ overlay: { display: 'block' } })
     return fetch(`http://127.0.0.1:3001/api/ats/random-ats`, {
       method: 'POST',
       headers: {
@@ -98,7 +102,7 @@ class Ats extends React.Component {
       if (ats) {
         that.setState({ ats: ats })
       }
-      that.setState({ overlay: {display: 'none'} })
+      that.setState({ overlay: { display: 'none' } })
     });
   }
 
