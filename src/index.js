@@ -7,7 +7,7 @@ var firstLoad = true;
 class Ats extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { value: '' }
+    this.state = { value: ''}
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -15,20 +15,21 @@ class Ats extends React.Component {
     this.generateRandomATS = this.generateRandomATS.bind(this);
     this.deleteATS = this.deleteATS.bind(this);
     this.obtainATS = this.obtainATS.bind(this);
-
   }
 
+
+  
   handleSubmit(event) {
     var val = parseInt(this.state.value)
     var that = this;
     this.getATSCode().then(function (ats) {
       if (val === ats) {
         that.deleteATS().then(function (response) {
-          that.setState({status: response})
+          that.setState({ status: response })
         });
         that.obtainATS();
       } else {
-        that.setState({status: 'wrong ATS entered'})
+        that.setState({ status: 'wrong ATS entered' })
       }
     })
     event.preventDefault();
@@ -95,9 +96,9 @@ class Ats extends React.Component {
     var that = this;
     this.getATSCode().then(function (ats) {
       if (ats) {
-        that.setState({ats: ats})
+        that.setState({ ats: ats })
       }
-
+      that.setState({ overlay: {display: 'none'} })
     });
   }
 
@@ -123,6 +124,13 @@ class Ats extends React.Component {
           <button id="ATS-Submit" type='submit' >Submit</button>
         </form>
         <p id="status">{this.state.status || ''}</p>
+
+        <div id="loading" style={this.state.overlay}>
+          <div id="spinner-wrapper">
+            <span id="spinner-text">LOADING</span>
+            <span id="spinner"></span>
+          </div>
+        </div>
       </div>
 
 
