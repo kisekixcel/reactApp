@@ -43,7 +43,7 @@ class Ats extends React.Component {
 
   deleteATS() {
     var that = this;
-    return fetch(`http://127.0.0.1:3001/api/ats/delete-ats`, {
+    return fetch(`https://tranquil-eyrie-80940.herokuapp.com/api/ats/delete-ats`, {
       method: 'DELETE',
     }).then(function (response) {
       return response.json()
@@ -53,7 +53,7 @@ class Ats extends React.Component {
   }
 
   getATSCode() {
-    return fetch(`http://127.0.0.1:3001/api/ats/1`, {
+    return fetch(`https://tranquil-eyrie-80940.herokuapp.com/api/ats/1`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json"
@@ -72,7 +72,7 @@ class Ats extends React.Component {
   generateRandomATS() {
     let that = this;
     that.setState({ overlay: { display: 'block' } })
-    return fetch(`http://127.0.0.1:3001/api/ats/random-ats`, {
+    return fetch(`https://tranquil-eyrie-80940.herokuapp.com/api/ats/random-ats`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
